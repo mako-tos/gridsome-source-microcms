@@ -40,10 +40,22 @@ class MicrocmsSource {
     });
   }
 
+  pascalCase(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  __ID() {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  };
+
+  ID() {
+    return this.__ID() + '-' + this.__ID();
+  }
+
   async getData(actions, url, options) {
     let offset = 0;
     const collection = actions.addCollection({
-      typeName: "MicroCMS" + options.endpoint,
+      typeName: "microcms" + this.pascalCase(options.endpoint),
     });
     while (true) {
       const accessURL = new URL(url);
@@ -63,6 +75,8 @@ class MicrocmsSource {
         for (const item of data.contents) {
           collection.addNode({
             ...item,
+            id: this.ID(),
+            microcmsId: item.id,
           });
         }
         if (!data.totalCount) {
