@@ -1,0 +1,23 @@
+{
+  "name": "gridsome-source-microcms",
+  "version": "0.0.1",
+  "description": "microCMS source for GridSome.",
+  "main": "index.js",
+  "author": "mako-tos",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "coveralls": "^3.1.0",
+    "eslint": "^7.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "jest": "^26.0.1",
+    "prettier": "^2.0.5"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "axios": "^0.19.2"
+  }
+}
