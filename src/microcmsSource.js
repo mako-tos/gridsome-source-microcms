@@ -33,7 +33,7 @@ class MicrocmsSource {
       throw new Error(`limit option must be number and 1 ≦ limit ≦ 1000.`);
     }
 
-    const baseUrl = `https://${options.serviceId}.microcms.io/api/${options.version}/${options.endpoint}`;
+    const baseUrl = `https://${options.serviceId}.microcms.io/api/v${options.version}/${options.endpoint}`;
 
     api.loadSource(async (actions) => {
       await this.getData(actions, baseUrl, options);
