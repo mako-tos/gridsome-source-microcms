@@ -8,7 +8,7 @@ class MicrocmsSource {
       endpoint: "",
       type: "list",
       limit: 100,
-      apiKey: '',
+      apiKey: "",
     };
   }
 
@@ -46,16 +46,14 @@ class MicrocmsSource {
       typeName: "MicroCMS" + options.endpoint,
     });
     while (true) {
-      const query = { limit: options.limit, offset };
-      const { data, status } = await axios.get(
-        url,
-        {
-          headers: { "X-API-KEY": options.apiKey },
-        },
-        query
-      );
+      const accessURL = new URL(url);
+      accessURL.searchParams.set("offset", offset);
+      accessURL.searchParams.set("limit", options.limit);
+      const { data, status } = await axios.get(accessURL.toString(), {
+        headers: { "X-API-KEY": options.apiKey },
+      });
       if (status !== 200) {
-        throw new Error(`Failed to load. status code: ${status}`)
+        throw new Error(`Failed to load. status code: ${status}`);
       }
 
       if (options.type === "list") {
@@ -78,7 +76,7 @@ class MicrocmsSource {
         collection.addNode({ ...data });
         break;
       } else {
-        throw new Error('Passed options.type is strange.', options.type)
+        throw new Error("Passed options.type is strange.", options.type);
       }
     }
   }
